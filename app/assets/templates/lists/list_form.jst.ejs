@@ -1,0 +1,8 @@
+<input type="hidden" name="list[board_id]" value="<%= board.escape('id') %>">
+
+<input type="text"
+       name="list[title]"
+       class="input-title"
+       placeholder="Add a list..."
+       value="<%= list.escape('title') %>"><br>
+<button class="create-new-list">Save</button>

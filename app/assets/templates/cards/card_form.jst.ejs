@@ -1,0 +1,6 @@
+<h4><%= card.escape('title') %> in list <span class="card-list"><%= list.escape('title') %></span></h4>
+<label for="card_description">Edit the description...</label>
+<textarea id="card_description"
+          name="card[description]"
+          class="hide"><%= card.escape('description') %></textarea>
+<button class="update-card-info hide">Save</button>

@@ -1,0 +1,26 @@
+todo:
+
+# Models
+
+
+
+# Collections
+
+
+# Views(template)
+-- boards
+  board-index: css for show all index only when click the "Boards"
+  (add class for button "Boards")
+  board
+  boardForm
+-- lists
+  list: 1. click title to edit
+        2. add new list (list form)
+  list index: 1. addList should only run when new item added, not when the first
+                 time fetch all lists(to be fixed)
+              2. notSavedList: should still hold unsaved input(to be fixed)
+              (1. 2. same for new Card in card-index)
+-- cards
+
+
+# Router
