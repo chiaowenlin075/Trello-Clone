@@ -12,6 +12,7 @@
   <header class="group">
     <input type="text" class="search-bar"><i class="fa fa-search icon-search"></i>
     <a class="logo" href="#/"><h1>TrelloClone</h1></a>
+    <% if current_user %>
     <nav>
       <ul class="main-list">
         <li><i class="fa fa-plus"></i></li>
@@ -19,6 +20,7 @@
         <li><i class="fa fa-bell-o"></i></li>
       </ul>
     </nav>
+    <% end %>
   </header>
   <!-- <%#= render partial: "layouts/header" %> -->
   <%= yield %>

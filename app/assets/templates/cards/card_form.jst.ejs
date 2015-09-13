@@ -1,6 +1,12 @@
+<div class="modal-back"></div>
+<div class="modal-card-form">
 <h4><%= card.escape('title') %> in list <span class="card-list"><%= list.escape('title') %></span></h4>
-<label for="card_description">Edit the description...</label>
+<form>
+<i class="close">&times</i>
+<label for="card_description">Click to edit the description...</label>
 <textarea id="card_description"
           name="card[description]"
           class="hide"><%= card.escape('description') %></textarea>
-<button class="update-card-info hide">Save</button>
+<button class="submit hide">Save</button>
+</form>
+</div>
