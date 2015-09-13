@@ -1,4 +1,6 @@
-html, body, div, p, h1, h2, h3, h4, a, label, button, nav {
+html, body, div, p, h1, h2,
+h3, h4, a, label, button, nav,
+ul, li, span, strong {
   margin: 0;
   padding: 0;
   border: 0;
@@ -6,10 +8,441 @@ html, body, div, p, h1, h2, h3, h4, a, label, button, nav {
   font: inherit;
   text-align: inherit;;
   text-decoration: inherit;
+  vertical-align: inherit;
 
   background: transparent;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100px;
+  height: auto;
+  display: block;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+input[type="password"],
+input[type="email"],
+input[type="text"],
+input[type="submit"],
+textarea {
+  display: block;
+  border: 0;
+  border-radius: 5px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  text-align: center;
+}
+
 body {
   font-family: sans-serif;
+  background: rgb(0, 121, 191);
+  color: #fff;
+  overflow-x: scroll;
+}
+
+h2 {
+  font-size: 17px;
+}
+
+// navbar
+
+header {
+  background: rgba(0,0,0,.15);
+}
+
+.logo {
+  font-size: 23px;
+  font-family: "Pacifico";
+  opacity: 0.65;
+  float: left;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 45px;
+  color: #fff;
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
+
+.search-bar {
+  float: left;
+  height: 34px;
+  width: 180px;
+  overflow-x: scroll;
+  background: rgba(255,255,255,.3);
+  margin: 5px 4px;
+}
+
+.icon-search {
+  position: absolute;
+  top: 14px;
+  left: 17px;
+}
+
+.main-list {
+  float: right;
+  font-size: 16px;
+}
+
+.main-list li {
+  padding: 8px 10px;
+  float: left;
+  background: rgba(255,255,255,.3);
+  border-radius: 3px;
+  margin: 5px 4px;
+}
+
+.main-list li:hover,
+.search-bar:hover {
+  background: rgba(255,255,255,.4);
+}
+
+// boards_index.css
+.backdrop {
+  height: calc(100% - 46px);
+}
+
+.boards-index {
+  padding-left: 6px;
+}
+
+.boards-index h2 {
+  color: #4a4a4a;
+  padding: 18px 0 12px 12px;
+}
+
+.icon-user {
+  margin-right: 12px;
+  color: #A1A1A1;
+}
+
+.white-back {
+  background: #FAFAFA;
+}
+
+.board-list {
+  width: 100%;
+  float: left;
+}
+
+.boards-list-item > a {
+  background: #2F6E9F;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 10px;
+  float: left;
+  margin: 0 15px 15px 0;
+  width: 210px;
+  height: 100px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.boards-list-item > a:hover {
+  background: #225B87;
+}
+
+.new-board {
+  position: relative;
+  float: left;
+}
+
+.add-board {
+  background: #d9d9d9;
+  color: #969696;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  width: 210px;
+  height: 100px;
+}
+
+.add-board:hover {
+  background: #CFCECE;
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  line-height: 1;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.board-form {
+  position: absolute;
+  left: -50%;
+  width: 280px;
+  height: 150px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px #000;
+  color: #4a4a4a;
+  padding: 10px;
+}
+
+.board-form > h4 {
+  padding: 6px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #B7B6B6;
+  text-align: center;
+  border-bottom: 1px #ccc solid;
+}
+
+.input label {
+  font-weight: bold;
+}
+
+.input input {
+  background: #ccc;
+  width: 278px;
+  height: 33px;
+  box-sizing: border-box;
+  padding: 5px 3px;
+  margin: 5px 0;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+.input input:focus {
+  background: #fff;
+  border: 2px #0A84EE solid;
+}
+
+.submit {
+  border: 0;
+  padding: 10px 30px;
+  margin: 10px;
+  border-radius: 5px;
+  background: #0b0;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0px 0px 3px #070;
+  color: #fff;
+  position: relative;
+}
+
+.submit:active {
+  top: 3px;
+  background: #0a0;
+  box-shadow: none;
+}
+
+
+// boardshow.css
+
+#main {
+  padding: 17px 10px;
+  overflow-x: auto;
+}
+
+.board-detail > h2 {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.board-detail > h2:hover {
+  background: rgba(0,0,0,.12);
+}
+
+.hide {
+  display: none;
+  width: 0;
+}
+
+.lists-index {
+  overflow: auto;
+  color: #4a4a4a;
+  float: left;
+}
+
+.list-item {
+  border-radius: 3px;
+  background: #eee;
+  margin: 5px;
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 11px 0 0 0;
+  box-sizing: border-box;
+}
+
+.new-list {
+  position: relative;
+  float: left;
+  margin: 5px;
+  width: 270px;
+  height: auto;
+  border-radius: 3px;
+}
+
+.list-form {
+  background: #eee;
+  float: left;
+  position: absolute;
+  padding: 3px 0;
+}
+
+.list-form input {
+  width: 260px;
+}
+
+.list-form input:focus {
+  background: #eee;
+  border: 1px #ccc solid;
+}
+
+.list-form input,
+.list-form .submit {
+  margin: 1px 5px 3px 5px;
+}
+
+.cards-index {
+  margin: 11px 11px 0 11px;
+}
+
+.cards-list-item {
+  background: #fff;
+  border-radius: 3px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 1px 5px;
+  margin-top: 5px;
+  border-bottom: 1px #ccc solid;
+}
+
+
+.list-item > h4 {
+  margin: 0 11px;
+}
+
+.cards-list-item > h4 {
+  font-size: 14px;
+}
+
+button.add-list {
+  color: rgba(255,255,255,.7);
+  opacity: 0.75;
+  background: rgba(0,0,0,.12);
+  border: 0;
+  padding: 10px;
+  border-radius: 3px;
+  width: 270px;
+  float: left;
+  margin: 5px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+button.add-list:hover {
+  background: #00404d;
+}
+
+button.add-card {
+  width: 100%;
+  color: #8f8f8f;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  font-size: 14px;
+  padding: 11px;
+}
+
+.new-card-title {
+  height: 70px;
+  width: 248px;
+  margin: auto;
+  overflow: auto;
+}
+
+button.add-card:hover {
+  color: #4a4a4a;
+  text-decoration: underline;
+  background: #d9d9d9;
+}
+
+button.create-new-list,
+button.create-new-card,
+button.update-card-info {
+  border: 0;
+  padding: 5px;
+  width: 70px;
+  margin: 10px;
+  border-radius: 5px;
+  background: #0c0;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0px 0px 2px #0a0;
+  color: #fff;
+}
+
+input[type=text]{
+  outline: 0;
+  display: block;
+  border: 0 0 1px 0 #ccc solid;
+  color: #000;
+}
+
+.card-form {
+  z-index: 5;
+  width: 730px;
+  height: 640px;
+  background: #eee;
+}
+
+// drag and sortable
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ul.list-item li.placeholder {
+  position: relative;
+  background: #2F6E9F;
+  display: block;
+  width: 200px;
+  height: 200px;
+  /** More li styles **/
+}
+ul.list-item li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
 }

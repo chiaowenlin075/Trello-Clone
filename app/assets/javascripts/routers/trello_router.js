@@ -16,7 +16,9 @@ TrelloClone.Routers.Router = Backbone.Router.extend({
     var view = new TrelloClone.Views.BoardsIndex({
       collection: this.boards
     });
-    this.$rootEl.find(".header").html(view.render().$el);
+    this._swapView(view);
+    // need another board index for drop down menu
+    // this.$rootEl.find(".header").html(view.render().$el);
   },
 
   boardNew: function(){
@@ -41,5 +43,10 @@ TrelloClone.Routers.Router = Backbone.Router.extend({
     this._currentView && this._currentView.remove();
     this._currentView = view;
     this.$rootEl.find("#main").html(view.render().$el);
+    if (view instanceof TrelloClone.Views.BoardsIndex){
+      this.$rootEl.addClass("white-back");
+    } else {
+      this.$rootEl.removeClass("white-back");
+    }
   }
 });

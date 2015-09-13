@@ -1,0 +1,112 @@
+body {
+  height: 100%;
+  font-family: sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#main {
+  padding: 20px;
+  background: rgb(0, 121, 191);
+  color: white;
+}
+
+.list-title{
+  margin: 5px 10px;
+}
+
+.hide {
+  display: none
+}
+
+.list-item{
+  color: #000;
+  border-radius: 5px;
+  background: #eee;
+  margin: 5px;
+  float: left;
+  width: 270px;
+}
+
+.cards-index {
+  padding: 5px 10px;
+}
+
+.cards-list-item {
+  background: #fff;
+  border-radius: 5px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 1px 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px #ccc solid;
+}
+
+.cards-list-item > h4 {
+  font-size: 14px;
+}
+
+button.add-list {
+  color: rgba(255,255,255,.7);
+  opacity: 0.75;
+  background: rgba(0,0,0,.12);
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 270px;
+}
+
+button.add-list:hover {
+  background: #00404d;
+}
+
+button.add-card {
+  width: 100%;
+  color: #aaa;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+button.add-card:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+button.create-new-list,
+button.create-new-card,
+button.update-card-info {
+  border: 0;
+  padding: 5px;
+  width: 70px;
+  margin: 10px;
+  border-radius: 5px;
+  background: #0c0;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0px 0px 2px #0a0;
+  color: #fff;
+}
+
+input[type=text]{
+  outline: 0;
+  display: block;
+  border: 0 0 1px 0 #ccc solid;
+  margin: 10px;
+  color: #000;
+}
+
+.card-form {
+  z-index: 5;
+  width: 730px;
+  height: 640px;
+  background: #eee;
+}

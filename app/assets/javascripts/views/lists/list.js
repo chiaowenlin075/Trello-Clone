@@ -5,11 +5,12 @@ TrelloClone.Views.List = Backbone.View.extend({
 
   events: {
     "click h4.list-title": "edit",
-    "blur .edit-area input": "saveTitle"
+    "blur .list-form input": "saveTitle"
   },
 
-  initialize: function(){
+  initialize: function(options){
     this.listenTo(this.model, "sync destroy change:[title]", this.render);
+    this.board = options.board;
   },
 
   render: function(){
@@ -20,31 +21,34 @@ TrelloClone.Views.List = Backbone.View.extend({
       collection: this.model.cards(),
       list: this.model
     });
-    this.$(".cards").html(cardIndexView.render().$el);
+    this.$el.append(cardIndexView.render().$el);
     return this;
   },
 
   edit: function(event){
     event.preventDefault();
-    var titleTag = $(event.currentTarget).addClass("hide");
-    var $input = $("<input type='text' value='" + titleTag.text() + "'>");
-    this.$(".edit-area").html($input);
-    $input.focus();
+    $(event.currentTarget).addClass("hide");
+    var listForm = new TrelloClone.Views.ListForm({
+      model: this.model,
+      board: this.board
+    })
+    this.$el.prepend(listForm.render().$el);
+    listForm.$("input").focus();
   },
 
   saveTitle: function(event){
     event.preventDefault();
-    var input = $(event.currentTarget).val();
+    var input = $(event.currentTarget).serializeJSON().list;
 
-    this.model.save({ title: input },{
+    this.model.save(input,{
       success: function(model){
-        this.$(".edit-area").empty();
+        this.$(".list-form").remove();
         this.$("h4").removeClass("hide");
       }.bind(this),
       error: function(model, resp){
         var error = JSON.parse(resp.responseText).join(", ");
         var $error = $("<strong>").html(error);
-        this.$(".edit-area").prepend($error, "<br>");
+        this.$(".list-form").prepend($error);
       }.bind(this)
     });
   }

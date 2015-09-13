@@ -1,10 +1,15 @@
 TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
-  className: "boards-index",
+  className: "boards-index group",
   template: JST['boards/index'],
 
+  events: {
+    "click button.add-board": "addBoardForm",
+    "blur form.board-form": "bluredBoardForm"
+  },
+
   initialize: function(options){
-    this.listenTo(this.collection, "sync add remove", this.render);
-    this.listenTo(this.collection, "add", this.addBoard);
+    this.listenTo(this.collection, "sync remove", this.render);
+    // this.listenTo(this.collection, "add", this.addBoard);
   },
 
   // CompositeView not working.....dont know why lol
@@ -12,19 +17,40 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
     var boardItemView = new TrelloClone.Views.BoardsIndexItem({
       model: board
     });
-
+    $(".add-board").removeClass("hide");
+    this.$(".board-form").remove();
     this.addSubview(".board-list", boardItemView, false);
   },
 
   render: function(){
     var content = this.template({ boards: this.collection });
     this.$el.html(content);
-    this.attachSubviews();
+
     this.collection.each(function(model){
       var view = new TrelloClone.Views.BoardsIndexItem({ model: model });
-      this.$(".board-list").append(view.render().$el);
+      this.$(".board-list").prepend(view.render().$el);
     }.bind(this));
     return this;
+  },
+
+  addBoardForm: function(event){
+    event.preventDefault();
+    $(event.currentTarget).addClass("hide");
+    var boardForm = new TrelloClone.Views.BoardForm({
+      model: new TrelloClone.Models.Board()
+    });
+
+    this.$(".new-board").append(boardForm.render().$el);
+    this.$(".board-form input").focus();
+  },
+
+  bluredBoardForm: function(event){
+    if (event.relatedTarget === $(event.currentTarget).find(".submit")[0]) {
+      return;
+    }
+    event.preventDefault();
+    this.$(".add-board").removeClass("hide");
+    this.$(".board-form").remove();
   }
 
 });

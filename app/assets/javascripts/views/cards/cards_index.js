@@ -3,7 +3,7 @@ TrelloClone.Views.CardsIndex = Backbone.View.extend({
 
   events: {
     "click button.add-card": "addCardForm",
-    "click button.create-new-card": "submitCardForm"
+    "click button.submit": "submitCardForm"
   },
 
   initialize: function(options){
@@ -29,16 +29,14 @@ TrelloClone.Views.CardsIndex = Backbone.View.extend({
   addCard: function(model){
     var view = new TrelloClone.Views.CardsIndexItem({ model: model });
     this.$(".cards-index").append(view.render().$el);
-    this.$(".add-card").removeClass("hide");
-    this.$(".new-card-form").addClass("hide");
   },
 
   addCardForm: function(event){
     event.preventDefault();
     var addCardButton = $(event.currentTarget).addClass("hide");
-    var $input = $("<input type='text'>").addClass("new-card-title");
-    var $button = $("<button>Add</button>").addClass("create-new-card");
-    this.$(".new-card-form").append($input, $button);
+    var $input = $("<textarea>").addClass("new-card-title");
+    var $button = $("<button class='submit'>Add</button>");
+    this.$el.append($input, $button);
     $input.focus();
   },
 
@@ -51,13 +49,14 @@ TrelloClone.Views.CardsIndex = Backbone.View.extend({
     }, {
       success: function(model){
         this.collection.add(model);
-        this.$(".new-card-form").empty();
-        this.$("button.add-card").removeClass("hide");
+        this.$(".new-card-title").remove();
+        this.$("button.submit").remove();
+        this.$(".add-card").removeClass("hide");
       }.bind(this),
       error: function(model, resp){
         var error = JSON.parse(resp.responseText).join(", ");
         var $error = $("<strong>").html(error);
-        this.$(".new-card-form").prepend($error, "<br>");
+        $error.insertBefore(this.$(".new-card-title"));
       }.bind(this)
     });
   }

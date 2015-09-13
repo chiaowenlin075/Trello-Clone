@@ -2,8 +2,8 @@ TrelloClone.Views.ListsIndex = Backbone.View.extend({
   template: JST['lists/index'],
 
   events: {
-    "click button.add-list": "addListForm"
-    // "blur form.list-form": "notSavedList"
+    "click button.add-list": "addListForm",
+    "blur form.list-form": "notSavedList"
   },
 
   initialize: function(options){
@@ -15,8 +15,8 @@ TrelloClone.Views.ListsIndex = Backbone.View.extend({
   render: function(){
     this.$el.html(this.template());
     this.collection.each(function(list){
-      var view = new TrelloClone.Views.List({ model: list });
-      this.$(".lists-index").append(view.render().$el);
+      var view = new TrelloClone.Views.List({ model: list, board: this.board });
+      (view.render().$el).insertBefore(this.$(".new-list"));
     }.bind(this));
 
     return this;
@@ -25,9 +25,9 @@ TrelloClone.Views.ListsIndex = Backbone.View.extend({
   // only render the new added list, need to fix!
   addList: function(model){
     var view = new TrelloClone.Views.List({ model: model });
-    this.$(".lists-index").append(view.render().$el);
+    (view.render().$el).insertBefore(this.$(".new-list"));
     this.$(".add-list").removeClass("hide");
-    this.$(".new-list-form").addClass("hide");
+    this.$(".list-form").addClass("hide");
   },
 
   newListForm: function(){
@@ -37,19 +37,25 @@ TrelloClone.Views.ListsIndex = Backbone.View.extend({
       board: this.board
     });
 
-    this.$(".new-list-form").html(this._newListForm.render().$el);
+    this.$(".new-list").append(this._newListForm.render().$el);
     return this._newListForm;
   },
 
   addListForm: function(event){
     event.preventDefault();
     this.$(".add-list").addClass("hide");  // hide: display: none
-    this.$(".new-list-form").removeClass("hide");
+    this.$(".list-form").removeClass("hide");
     this.newListForm().$("input[type=text]").focus();
-  }
+  },
 
-  // notSavedList: function(event){
-  //   event.preventDefault();
-  // }
+  notSavedList: function(event){
+  // don't want to trigger event if clicked 'save'
+    if (event.relatedTarget === $(event.currentTarget).find(".submit")[0]) {
+      return;
+    }
+    event.preventDefault();
+    this.$(".add-list").removeClass("hide");
+    this.$(".list-form").addClass("hide");
+  }
 
 });
