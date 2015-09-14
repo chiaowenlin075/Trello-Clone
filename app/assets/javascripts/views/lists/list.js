@@ -11,6 +11,7 @@ TrelloClone.Views.List = Backbone.View.extend({
   initialize: function(options){
     this.listenTo(this.model, "sync destroy change:[title]", this.render);
     this.board = options.board;
+    this.$el.data("id", this.model.escape('id'));
   },
 
   render: function(){

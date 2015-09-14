@@ -13,7 +13,7 @@ ul, li, span, strong {
   background: transparent;
 }
 
-ul {
+ul, li {
   list-style: none;
 }
 
@@ -293,7 +293,10 @@ header {
 
 #main {
   padding: 17px 10px;
+  position: relative;
+  display: block;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .board-detail > h2 {
@@ -313,21 +316,21 @@ header {
   width: 0;
 }
 
-.lists-index {
-  overflow: auto;
-  color: #4a4a4a;
-  float: left;
-}
-
 .list-item {
   border-radius: 3px;
+  color: #4a4a4a;
   background: #eee;
   margin: 5px;
+  display: block;
   float: left;
   width: 270px;
   height: 100%;
   padding: 11px 0 0 0;
   box-sizing: border-box;
+}
+
+.is-dragging {
+  transform: rotate(5deg);
 }
 
 .new-list {
@@ -421,21 +424,6 @@ button.add-card:hover {
   background: #d9d9d9;
 }
 
-button.create-new-list,
-button.create-new-card,
-button.update-card-info {
-  border: 0;
-  padding: 5px;
-  width: 70px;
-  margin: 10px;
-  border-radius: 5px;
-  background: #0c0;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0px 0px 2px #0a0;
-  color: #fff;
-}
-
 input[type=text]{
   outline: 0;
   display: block;
@@ -479,28 +467,4 @@ input[type=text]{
   width: 350px;
   height: 130px;
   overflow: auto;
-}
-
-// drag and sortable
-body.dragging, body.dragging * {
-  cursor: move !important;
-}
-
-.dragged {
-  position: absolute;
-  opacity: 0.5;
-  z-index: 2000;
-}
-
-ul.list-item li.placeholder {
-  position: relative;
-  background: #2F6E9F;
-  display: block;
-  width: 200px;
-  height: 200px;
-  /** More li styles **/
-}
-ul.list-item li.placeholder:before {
-  position: absolute;
-  /** Define arrowhead **/
 }

@@ -21,4 +21,8 @@ class Board < ActiveRecord::Base
     return true if u.id == self.user_id
     board_memberships.where(user_id: u.id).exists?
   end
+
+  # def lists
+  #   Board.joins("lists").where("lists.board_id = ?", self.id).order("lists.ord")
+  # end
 end

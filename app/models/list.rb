@@ -19,4 +19,7 @@ class List < ActiveRecord::Base
   default_scope { order(:ord) }
 
   # TODO: class method for updating orders?
+  # def self.update_order
+  #   List.order("lists.ord DESC")
+  # end
 end

@@ -1,5 +1,12 @@
-<ul class="lists-index group" id="sortable">
-  <li class="new-list">
-    <button class="add-list">Add a list...</button>
-  </li>
+<ul id="sortable" class="lists-index group" id="sortable">
 </ul>
+<a class="new-list">
+  <button class="add-list">Add a list...</button>
+</a>
+
+<script>
+  $(function() {
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+  });
+</script>

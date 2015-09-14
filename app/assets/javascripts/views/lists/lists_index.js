@@ -1,32 +1,33 @@
 // Didn't use composite view due to using "insertBefore"
-TrelloClone.Views.ListsIndex = Backbone.View.extend({
+TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
   template: JST['lists/index'],
-
-  events: {
-    "click button.add-list": "addListForm",
-    "blur form.list-form": "notSavedList"
-  },
 
   initialize: function(options){
     this.listenTo(this.collection, "remove", this.render);
     this.listenTo(this.collection, "add", this.addList);
     this.board = options.board;
+    this.collection.each(this.addList.bind(this));
   },
+
+  events: {
+    "click button.add-list": "addListForm",
+    "blur form.list-form": "notSavedList",
+    "mousedown li.list-item": "isDragging",
+    "mouseup li.list-item": "doneDragging"
+  },
+
 
   render: function(){
     this.$el.html(this.template());
-    this.collection.each(function(list){
-      var view = new TrelloClone.Views.List({ model: list, board: this.board });
-      (view.render().$el).insertBefore(this.$(".new-list"));
-    }.bind(this));
-
+    this.attachSubviews();
+    this.addDragging();
     return this;
   },
 
   // only render the new added list, need to fix!
   addList: function(model){
-    var view = new TrelloClone.Views.List({ model: model });
-    (view.render().$el).insertBefore(this.$(".new-list"));
+    var view = new TrelloClone.Views.List({ model: model, board: this.board });
+    this.addSubview(".lists-index", view);
     this.$(".add-list").removeClass("hide");
     this.$(".list-form").addClass("hide");
   },
@@ -57,6 +58,30 @@ TrelloClone.Views.ListsIndex = Backbone.View.extend({
     event.preventDefault();
     this.$(".add-list").removeClass("hide");
     this.$(".list-form").addClass("hide");
+  },
+
+  addDragging: function(){
+    this.$("#sortable").sortable();
+    this.$("#sortable").disableSelection();
+  },
+
+  isDragging: function(event){
+    event.preventDefault();
+    $(event.currentTarget).addClass("is-dragging");
+
+  },
+
+  doneDragging: function(event){
+    event.preventDefault();
+    $(event.currentTarget).removeClass("is-dragging");
+    var old
+    // use setTimeout to make sure the 'mouseup' event is finished
+    setTimeout(function(){
+      this.$("li.list-item").each(function(li){
+        
+      })
+      debugger
+    }.bind(this), 0);
   }
 
 });

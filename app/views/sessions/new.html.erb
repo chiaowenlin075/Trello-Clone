@@ -1,6 +1,7 @@
 <div class="signin-form">
 <h1>Sign In</h1>
 
+<strong><%= flash[:errors] %></strong>
 <form action="/session" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <label>Email</label>
