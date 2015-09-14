@@ -13,14 +13,16 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
   events: {
     "click button.add-list": "addListForm",
     "blur form.list-form": "notSavedList",
-    "mousedown li.list-item": "isDragging",
-    "mouseup li.list-item": "doneDragging"
+    "mousedown li.list-wrapper": "isDragging",
+    "mouseup li.list-wrapper": "doneDragging"
   },
 
   render: function(){
     this.$el.html(this.template());
     this.attachSubviews("insertBefore", ".list-wrapper");
     this.addDragging();
+    var numOfLists = this.$(".lists-index").children().length;
+    this.$el.css({ width: (numOfLists * 282) + "px" });
     return this;
   },
 
@@ -30,6 +32,9 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
     this.addSubview(".new-list", view, "insertBefore", ".list-wrapper");
     this.$(".add-list").removeClass("hide");
     this.$(".list-form").addClass("hide");
+    // change the width when add new child
+    var numOfLists = this.$(".lists-index").children().length;
+    this.$el.css({ width: (numOfLists * 282) + "px" });
   },
 
   newListForm: function(){
@@ -67,13 +72,13 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
 
   isDragging: function(event){
     // make sure things like "add card" won't trigger this event
-    if (!$(event.target).is("li.list-wrapper")) { return };
+    if ($(event.target).is("button")) { return };
     event.preventDefault();
     $(event.currentTarget).addClass("is-dragging");
   },
 
   doneDragging: function(event){
-    if (!$(event.currentTarget).hasClass(".is-dragging")) { return };
+    if (!$(event.currentTarget).hasClass("is-dragging")) { return };
     var that = this;
     event.preventDefault();
     $(event.currentTarget).removeClass("is-dragging");

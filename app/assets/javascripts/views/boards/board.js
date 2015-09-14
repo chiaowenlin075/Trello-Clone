@@ -15,8 +15,6 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     });
     this.$el.append(view.render().$el);
 
-    var numOfLists = this.$(".lists-index").children().length;
-    this.$el.css({ width: (numOfLists * 280) + "px" });
     return this;
   }
 
