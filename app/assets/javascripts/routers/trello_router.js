@@ -11,14 +11,12 @@ TrelloClone.Routers.Router = Backbone.Router.extend({
     "boards/:id/edit": "boardEdit"
   },
 
-  // only board index show on the top, will fix css to show only when click
+  // need another board index for drop down menu
   boardIndex: function(){
     var view = new TrelloClone.Views.BoardsIndex({
       collection: this.boards
     });
     this._swapView(view);
-    // need another board index for drop down menu
-    // this.$rootEl.find(".header").html(view.render().$el);
   },
 
   boardNew: function(){

@@ -9,27 +9,34 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
 
   initialize: function(options){
     this.listenTo(this.collection, "sync remove", this.render);
-    // this.listenTo(this.collection, "add", this.addBoard);
+    this.listenTo(this.collection, "sync", this.addBoards);
+    this.addBoards(this.collection);
   },
 
-  // CompositeView not working.....dont know why lol
+  // addBoards to selector when all collections fetched!
+  addBoards: function(models){
+    models.each(this.addBoard.bind(this));
+  },
+
   addBoard: function(board){
     var boardItemView = new TrelloClone.Views.BoardsIndexItem({
       model: board
     });
+
     $(".add-board").removeClass("hide");
     this.$(".board-form").remove();
-    this.addSubview(".board-list", boardItemView, false);
+    this.addSubview(".board-list", boardItemView, true);
   },
 
   render: function(){
     var content = this.template({ boards: this.collection });
     this.$el.html(content);
+    this.attachSubviews(true);
+    // this.collection.each(function(model){
+    //   var view = new TrelloClone.Views.BoardsIndexItem({ model: model });
+    //   this.$(".board-list").prepend(view.render().$el);
+    // }.bind(this));
 
-    this.collection.each(function(model){
-      var view = new TrelloClone.Views.BoardsIndexItem({ model: model });
-      this.$(".board-list").prepend(view.render().$el);
-    }.bind(this));
     return this;
   },
 

@@ -146,6 +146,7 @@ header {
   background: rgba(255,255,255,.3);
   border-radius: 3px;
   margin: 5px 4px;
+  cursor: pointer;
 }
 
 .main-list li:hover,
@@ -155,7 +156,7 @@ header {
 
 // boards_index.css
 .backdrop {
-  height: calc(100% - 46px);
+  min-height: 500px;
 }
 
 .boards-index {
@@ -466,13 +467,15 @@ input[type=text]{
 }
 
 .modal-card-form label {
-  margin: 10px 5px;
+  margin: 5px 0;
   display: block;
   cursor: pointer;
 }
 
 .modal-card-form textarea {
-  margin: 10px 5px;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 12px;
   width: 350px;
   height: 130px;
   overflow: auto;

@@ -21,6 +21,7 @@ TrelloClone.Views.List = Backbone.View.extend({
       collection: this.model.cards(),
       list: this.model
     });
+
     this.$el.append(cardIndexView.render().$el);
     return this;
   },

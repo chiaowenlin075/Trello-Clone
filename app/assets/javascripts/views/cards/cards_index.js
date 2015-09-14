@@ -1,4 +1,4 @@
-TrelloClone.Views.CardsIndex = Backbone.View.extend({
+TrelloClone.Views.CardsIndex = Backbone.CompositeView.extend({
   template: JST['cards/index'],
 
   events: {
@@ -6,29 +6,32 @@ TrelloClone.Views.CardsIndex = Backbone.View.extend({
     "click button.submit": "submitCardForm"
   },
 
+  // add cards 18 times....(total 9 cards), any better way?
   initialize: function(options){
+    this.list = options.list;
     this.listenTo(this.collection, "remove", this.render);
     this.listenTo(this.collection, "add", this.addCard);
-    this.list = options.list;
+    this.addCards(this.collection);
   },
 
   render: function(){
     var content = this.template();
     this.$el.html(content);
-    this.collection.each(function(card){
-      var view = new TrelloClone.Views.CardsIndexItem({
-        model: card,
-        list: this.list
-      });
-      this.$(".cards-index").append(view.render().$el);
-    }.bind(this));
+    this.attachSubviews();
 
     return this;
   },
 
+  addCards: function(models){
+    models.each(this.addCard.bind(this));
+  },
+
   addCard: function(model){
-    var view = new TrelloClone.Views.CardsIndexItem({ model: model });
-    this.$(".cards-index").append(view.render().$el);
+    var view = new TrelloClone.Views.CardsIndexItem({
+      model: model,
+      list: this.list
+    });
+    this.addSubview(".cards-index", view);
   },
 
   addCardForm: function(event){

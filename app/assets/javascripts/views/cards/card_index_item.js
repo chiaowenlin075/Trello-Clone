@@ -22,8 +22,7 @@ TrelloClone.Views.CardsIndexItem = Backbone.View.extend({
       model: this.model,
       list: this.list
     });
-    // this.$(".card-detail").html(cardView.render().$el);
-    // this.$(".card-detail").focus(); // focus can only on input/textarea?
+
     $("body").append(cardView.render().$el);
   }
 

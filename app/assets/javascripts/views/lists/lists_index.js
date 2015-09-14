@@ -1,3 +1,4 @@
+// Didn't use composite view due to using "insertBefore"
 TrelloClone.Views.ListsIndex = Backbone.View.extend({
   template: JST['lists/index'],
 

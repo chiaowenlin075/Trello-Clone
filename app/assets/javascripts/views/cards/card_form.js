@@ -4,7 +4,7 @@ TrelloClone.Views.CardForm = Backbone.View.extend({
 
   events: {
     "click label": "showEditArea",
-    "click button.submit": "update",
+    "submit form": "update",
     "click .close": "closeForm"
   },
 
@@ -23,13 +23,13 @@ TrelloClone.Views.CardForm = Backbone.View.extend({
     event.preventDefault();
     $(event.currentTarget).toggleClass("hide");
     this.$("label").toggleClass("hide");
-    this.$("textarea").toggleClass("hide");
+    this.$("textarea").toggleClass("hide").focus();
     this.$(".submit").toggleClass("hide");
   },
 
   update: function(event){
     event.preventDefault();
-    var input = this.$el.serializeJSON();
+    var input = $(event.currentTarget).serializeJSON();
     this.model.save(input.card, {
       success: function(model){
         this.remove();
