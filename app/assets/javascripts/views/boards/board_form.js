@@ -7,6 +7,10 @@ TrelloClone.Views.BoardForm = Backbone.CompositeView.extend({
     "click button.submit": "submit"
   },
 
+  initialize: function(options){
+    this.collection = options.collection;
+  },
+
   render: function(){
     this.$el.html(this.template());
     this.$("input").focus();

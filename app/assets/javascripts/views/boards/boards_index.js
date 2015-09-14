@@ -12,6 +12,8 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
     this.listenTo(this.collection, "sync remove", this.render);
     this.listenTo(this.collection, "add", this.addBoard); // you set { reset: true }, so no 'add' events happen when fetching datas
     this.addBoards(this.collection);
+
+    this.$el.on("click", this.closeDeleteBoard.bind(this));
   },
 
   // addBoards to selector when all collections fetched!
@@ -24,15 +26,14 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
       model: board
     });
 
-    $(".add-board").removeClass("hide");
-    this.$(".board-form").remove();
-    this.addSubview(".board-list", boardItemView, true);
+    this.addSubview(".new-board", boardItemView, "insertBefore", "boards-list-item");
   },
 
   render: function(){
     var content = this.template({ boards: this.collection });
     this.$el.html(content);
-    this.attachSubviews(true);
+    this.attachSubviews("insertBefore", "boards-list-item");
+
     return this;
   },
 
@@ -40,7 +41,8 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
     event.preventDefault();
     $(event.currentTarget).addClass("hide");
     var boardForm = new TrelloClone.Views.BoardForm({
-      model: new TrelloClone.Models.Board()
+      model: new TrelloClone.Models.Board(),
+      collection: this.collection
     });
 
     this.$(".new-board").append(boardForm.render().$el);
@@ -54,6 +56,12 @@ TrelloClone.Views.BoardsIndex = Backbone.CompositeView.extend({
     event.preventDefault();
     this.$(".add-board").removeClass("hide");
     this.$(".board-form").remove();
+  },
+
+  closeDeleteBoard: function(event){
+    if (!$(event.currentTarget).is("button.delete-board")) {
+      this.$("button.delete-board").remove();
+    }
   }
 
 });

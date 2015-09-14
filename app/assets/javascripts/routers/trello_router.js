@@ -42,9 +42,9 @@ TrelloClone.Routers.Router = Backbone.Router.extend({
     this._currentView = view;
     this.$rootEl.find("#main").html(view.render().$el);
     if (view instanceof TrelloClone.Views.BoardsIndex){
-      this.$rootEl.addClass("white-back");
+      $("body").addClass("white-back");
     } else {
-      this.$rootEl.removeClass("white-back");
+      $("body").removeClass("white-back");
     }
   }
 });

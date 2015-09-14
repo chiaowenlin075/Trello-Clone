@@ -36,6 +36,7 @@ TrelloClone.Views.CardsIndex = Backbone.CompositeView.extend({
 
   addCardForm: function(event){
     event.preventDefault();
+    event.stopPropagation();
     var addCardButton = $(event.currentTarget).addClass("hide");
     var $input = $("<textarea>").addClass("new-card-title");
     var $button = $("<button class='submit'>Add</button>");

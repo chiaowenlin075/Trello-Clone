@@ -1,26 +1,33 @@
 Backbone.CompositeView = Backbone.View.extend({
-  addSubview: function (selector, subview, prepend) {
+  addSubview: function (selector, subview, position, removeItemsClass) {
     this.subviews(selector).push(subview);
     // Try to attach the subview. Render it as a convenience.
-    this.attachSubview(selector, subview.render(), prepend);
+    this.attachSubview(selector, subview.render(), position, removeItemsClass);
   },
 
-  attachSubview: function (selector, subview, prepend) {
-    if (prepend === true){
-      this.$(selector).prepend(subview.$el);
-    } else {
-      this.$(selector).append(subview.$el);
+  attachSubview: function (selector, subview, position, removeItemsClass) {
+    switch (position) {
+      case "prepend":
+        this.$(selector).prepend(subview.$el);
+        break;
+      case "insertBefore":
+        subview.$el.insertBefore(this.$(selector));
+        break;
+      default:
+        this.$(selector).append(subview.$el);
+        break;
     };
+
     // Bind events in case `subview` has previously been removed from
     // DOM.
     subview.delegateEvents();
 
     if (subview.attachSubviews) {
-      subview.attachSubviews();
+      subview.attachSubviews(position, removeItemsClass);
     }
   },
 
-  attachSubviews: function (prepend) {
+  attachSubviews: function (position, removeItemsClass) {
     // I decided I didn't want a function that renders ALL the
     // subviews together. Instead, I think:
     //
@@ -34,9 +41,14 @@ Backbone.CompositeView = Backbone.View.extend({
 
     var view = this;
     this.subviews().each(function (selectorSubviews, selector) {
-      view.$(selector).empty();
+      if (removeItemsClass){
+        // only remove certain items
+        view.$(removeItemsClass).remove();
+      } else {
+        view.$(selector).empty();
+      }
       selectorSubviews.each(function (subview) {
-        view.attachSubview(selector, subview, prepend);
+        view.attachSubview(selector, subview, position);
       });
     });
   },

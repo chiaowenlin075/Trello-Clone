@@ -37,6 +37,14 @@ h1, h2, h3, h4 {
   font-weight: bold;
 }
 
+html {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: relative;
+}
+
 input[type="password"],
 input[type="email"],
 input[type="text"],
@@ -48,6 +56,7 @@ textarea {
   outline: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
+  font-size: 14px;
 }
 
 button,
@@ -62,7 +71,6 @@ body {
   font-family: sans-serif;
   background: rgb(0, 121, 191);
   color: #fff;
-  overflow-x: scroll;
 }
 
 h2 {
@@ -101,7 +109,7 @@ h2 {
 // navbar
 
 header {
-  background: rgba(0,0,0,.15);
+  background: rgb(21, 110, 165);
 }
 
 .logo {
@@ -122,11 +130,12 @@ header {
 
 .search-bar {
   float: left;
-  height: 34px;
+  height: 32px;
   width: 180px;
   overflow-x: scroll;
+  padding-left: 35px;
   background: rgba(255,255,255,.3);
-  margin: 5px 4px;
+  margin: 5px 5px;
 }
 
 .icon-search {
@@ -157,10 +166,16 @@ header {
 // boards_index.css
 .backdrop {
   min-height: 500px;
+  height: calc(100vh - 46px);
+  overflow-y: hidden;
 }
 
 .boards-index {
-  padding-left: 6px;
+  padding: 28px 6px;
+  width: 80%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .boards-index h2 {
@@ -177,8 +192,8 @@ header {
   background: #FAFAFA;
 }
 
-.board-list {
-  width: 100%;
+.boards-list-item {
+  position: relative;
   float: left;
 }
 
@@ -197,6 +212,39 @@ header {
 
 .boards-list-item > a:hover {
   background: #225B87;
+}
+
+.icon-setting {
+  position: absolute;
+  width: 15px;
+  right: 20px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.delete-board {
+  font-size: 14px;
+  padding: 5px 8px;
+  position: absolute;
+  right: 15px;
+  top: -30px;
+  background: #4a4a4a;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.delete-board:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 5px;
+  box-sizing: border-box;
+  border-top: 5px solid #4a4a4a;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  position: absolute;
+  bottom: -5px;
+  right: 8px;
 }
 
 .new-board {
@@ -230,7 +278,6 @@ header {
 
 .board-form {
   position: absolute;
-  left: -50%;
   width: 280px;
   height: 150px;
   border-radius: 3px;
@@ -260,7 +307,6 @@ header {
   box-sizing: border-box;
   padding: 5px 3px;
   margin: 5px 0;
-  font-size: 14px;
   overflow-x: auto;
 }
 
@@ -288,15 +334,24 @@ header {
   box-shadow: none;
 }
 
-
 // boardshow.css
 
 #main {
-  padding: 17px 10px;
   position: relative;
   display: block;
-  overflow-x: auto;
-  overflow-y: hidden;
+  min-height: 500px;
+}
+
+.board-detail {
+  white-space: nowrap;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding: 8px;
+}
+
+.board-header {
+  padding: 8px 4px 8px 8px;
+  height: auto;
 }
 
 .board-detail > h2 {
@@ -313,20 +368,29 @@ header {
 
 .hide {
   display: none;
-  width: 0;
+}
+
+.lists {
+  overflow-y: hidden;
+}
+
+.list-wrapper {
+  margin: 5px;
+  display: block;
+  float: left;
+  width: 270px;
+  height: 100vh;
 }
 
 .list-item {
   border-radius: 3px;
   color: #4a4a4a;
   background: #eee;
-  margin: 5px;
-  display: block;
-  float: left;
-  width: 270px;
-  height: 100%;
   padding: 11px 0 0 0;
-  box-sizing: border-box;
+}
+
+.list-item > h4 {
+  margin: 0 11px;
 }
 
 .is-dragging {
@@ -365,10 +429,6 @@ header {
 
 .cards-index {
   margin: 11px 11px 0 11px;
-}
-
-.list-item > h4 {
-  margin: 0 11px;
 }
 
 .cards-list-item > h4 {

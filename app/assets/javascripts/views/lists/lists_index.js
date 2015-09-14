@@ -1,5 +1,6 @@
 // Didn't use composite view due to using "insertBefore"
 TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
+  className: "lists group",
   template: JST['lists/index'],
 
   initialize: function(options){
@@ -16,10 +17,9 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
     "mouseup li.list-item": "doneDragging"
   },
 
-
   render: function(){
     this.$el.html(this.template());
-    this.attachSubviews();
+    this.attachSubviews("insertBefore", ".list-wrapper");
     this.addDragging();
     return this;
   },
@@ -27,7 +27,7 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
   // only render the new added list, need to fix!
   addList: function(model){
     var view = new TrelloClone.Views.List({ model: model, board: this.board });
-    this.addSubview(".lists-index", view);
+    this.addSubview(".new-list", view, "insertBefore", ".list-wrapper");
     this.$(".add-list").removeClass("hide");
     this.$(".list-form").addClass("hide");
   },
@@ -66,22 +66,27 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
   },
 
   isDragging: function(event){
+    // make sure things like "add card" won't trigger this event
+    if (!$(event.target).is("li.list-wrapper")) { return };
     event.preventDefault();
     $(event.currentTarget).addClass("is-dragging");
-
   },
 
   doneDragging: function(event){
+    if (!$(event.currentTarget).hasClass(".is-dragging")) { return };
+    var that = this;
     event.preventDefault();
     $(event.currentTarget).removeClass("is-dragging");
-    var old
+
     // use setTimeout to make sure the 'mouseup' event is finished
     setTimeout(function(){
-      this.$("li.list-item").each(function(li){
-        
+      that.$("div.list-item").each(function(idx, div){
+        var newOrd = idx
+        var listId = $(div).data("list-id");
+        var list = that.collection.get(listId);
+        list.save({ ord: newOrd });
       })
-      debugger
-    }.bind(this), 0);
+    }, 0);
   }
 
 });

@@ -1,6 +1,6 @@
 TrelloClone.Views.List = Backbone.View.extend({
   tagName: "li",
-  className: "list-item",
+  className: "list-wrapper",
   template: JST['lists/list'],
 
   events: {
@@ -23,7 +23,7 @@ TrelloClone.Views.List = Backbone.View.extend({
       list: this.model
     });
 
-    this.$el.append(cardIndexView.render().$el);
+    this.$(".list-item").append(cardIndexView.render().$el);
     return this;
   },
 
