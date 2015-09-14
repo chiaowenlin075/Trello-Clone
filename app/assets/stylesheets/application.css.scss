@@ -402,6 +402,12 @@ header {
   transform: rotate(5deg);
 }
 
+li.ui-sortable-placeholder {
+  transform: rotate(0);
+  background: rgb(21, 110, 165);
+  visibility: visible !important;
+}
+
 .new-list {
   position: relative;
   float: left;

@@ -72,7 +72,7 @@ TrelloClone.Views.ListsIndex = Backbone.CompositeView.extend({
 
   isDragging: function(event){
     // make sure things like "add card" won't trigger this event
-    if ($(event.target).is("button")) { return };
+    if ($(event.target).is("button") || $(event.target).is("textarea")) { return };
     event.preventDefault();
     $(event.currentTarget).addClass("is-dragging");
   },
