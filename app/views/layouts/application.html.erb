@@ -15,8 +15,8 @@
     <% if current_user %>
     <nav>
       <ul class="main-list">
-        <li><i class="fa fa-plus"></i></li>
-        <li><%= current_user.email %></li>
+        <li>Hello <%= current_user.email %></li>
+        <li><%= button_to "Sign Out", session_url, method: :delete, class: "sign-out-btn" %></li>
         <li><i class="fa fa-bell-o"></i></li>
       </ul>
     </nav>
@@ -27,12 +27,23 @@
 
   <script>
   $(function() {
-    $( ".list-item" ).sortable({
-      appendTo: document.body
+    $(".user-option").on("click", function(e){
+      e.preventDefault();
+      var $modalBack = $("<div class='modal-back'></div>");
+      var $modalForm = $("<div class='modal-sign-out'>");
+      var $btn = $("<button class='submit'>Sign Out</button>");
+      var $p = $("<p>").text("Are you sure to sign out?");
+      var $close = $("<i class='close'>&times</i>");
+      $modalForm.append($close, $p, $btn);
+      $("body").append($modalBack, $modalForm);
     });
-    // $("#sortable").sortable();
-    // $("#sortable").draggable();
-    // $( "#sortable" ).disableSelection();
+
+    $(".close").on("click", function(e){
+      e.preventDefault();
+      debugger
+      var parentDiv = $(e.currentTarget).parent().remove()
+      $(".modal-back").remove();
+    });
   });
   </script>
 </body>
